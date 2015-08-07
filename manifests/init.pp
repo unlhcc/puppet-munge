@@ -31,7 +31,7 @@ class munge (
         group   => 'munge',
         require => Package['munge'],
         notify  => Service['munge'],
-        source  => base64('decode', $::munge::munge_key),
+        content => base64('decode', $::munge::munge_key),
     }
 
 }

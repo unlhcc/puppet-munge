@@ -1,6 +1,8 @@
 # Class: munge
 # ===========================
-
+#
+# Note that mung.key should be provided via hiera as base64 encded
+#
 class munge (
     $package_ensure     = 'present',
     $service_ensure     = 'running',
@@ -29,7 +31,7 @@ class munge (
         group   => 'munge',
         require => Package['munge'],
         notify  => Service['munge'],
-        source  => base64('decode, $::munge::munge_key),
+        source  => base64('decode', $::munge::munge_key),
     }
 
 }

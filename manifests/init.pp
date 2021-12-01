@@ -1,7 +1,7 @@
 # Class: munge
 # ===========================
 #
-# Note that mung.key should be provided via hiera as base64 encded
+# Note that munge_key should be provided via hiera as base64 encoded
 #
 class munge (
     $package_ensure     = 'present',
@@ -31,7 +31,8 @@ class munge (
         group   => 'munge',
         require => Package['munge'],
         notify  => Service['munge'],
-        content => base64('decode', $::munge::munge_key),
+        content => Sensitive(Binary($::munge::munge_key)),
+        #                    ^- This does b64 decode
     }
 
 }
